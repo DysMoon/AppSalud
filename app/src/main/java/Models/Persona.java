@@ -1,6 +1,9 @@
 package Models;
 
-public class Persona  {
+import java.io.Serializable;
+
+public class Persona implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String nombres;
     private String apellidos;
     private int edad;
@@ -17,6 +20,56 @@ public class Persona  {
         this.altura = altura;
     }
 
+
+    public String getNombres() {
+        return nombres;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public double getAltura() {
+        return altura;
+    }
+
+
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+
+    public void setAltura(double altura) {
+        this.altura = altura;
+    }
+
     public int calcularIMC() {
         double imc = peso / (altura * altura);
         if (imc < 20) {
@@ -29,10 +82,7 @@ public class Persona  {
     }
 
     public boolean esMayorDeEdad() {
-        if(edad >= 18)
-            return true;
-        else
-            return false;
+        return edad >= 18;
     }
 
     public static boolean verificarDNI(String dni) {
@@ -41,8 +91,8 @@ public class Persona  {
 
     @Override
     public String toString() {
-
         String[] tipoPeso = {"Peso Bajo", "Peso Ideal", "Sobre Peso"};
-        return nombres + "," + apellidos + " tiene peso " + tipoPeso[calcularIMC()+1] + " y es " + (esMayorDeEdad() ? "mayor de edad" : "menor de edad");
+        return nombres + " " + apellidos + " tiene peso " + tipoPeso[calcularIMC() + 1] +
+                " y es " + (esMayorDeEdad() ? "mayor de edad" : "menor de edad");
     }
 }

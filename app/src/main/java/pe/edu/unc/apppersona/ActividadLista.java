@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 public class ActividadLista extends ListActivity {
@@ -23,12 +24,11 @@ public class ActividadLista extends ListActivity {
         @Override
         protected void onListItemClick(ListView l, View v, int index, long id) {
             super.onListItemClick(l, v, index, id);
-            //   Toast.makeText(this, "Has pulsado " + index, Toast.LENGTH_LONG).show();
+              // Toast.makeText(this, "Has pulsado " + index, Toast.LENGTH_LONG).show();
 
             Intent ointent=null;
             try {
-                //Declarar una objeto de una clase generica
-                Class<?> ActividadDestino = Class.forName("pe.edu.unc.appPersona.Actividad" + ejer[index]);
+                Class<?> ActividadDestino = Class.forName("pe.edu.unc.apppersona.Actividad" + ejer[index]);
                 ointent = new Intent(this, ActividadDestino);
                 startActivity(ointent);
             }catch (Exception e){

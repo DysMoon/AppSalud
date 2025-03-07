@@ -2,6 +2,7 @@ package pe.edu.unc.apppersona;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 import Models.Persona;
-import pe.edu.unc.apppersona.R;
 
 public class ActividadPersona extends AppCompatActivity {
 
@@ -79,9 +79,12 @@ public class ActividadPersona extends AppCompatActivity {
     }
 
     private void listarPersonas() {
+        Log.d("DEBUG", "Lista de personas: " + listaPersonas.toString()); // Verificar contenido en Logcat
         Intent intent = new Intent(this, ActividadListadoPersonas.class);
         intent.putExtra("listaPersonas", listaPersonas);
         startActivity(intent);
+
+
     }
 
     private void limpiarCampos() {
