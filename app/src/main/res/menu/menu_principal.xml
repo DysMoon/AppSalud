@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Inicio" />
+    <item android:title="Mantenimiento Personas" >
+        <menu >
+            <group >
+                <item
+                    android:id="@+id/itemRegistrarPersonas"
+                    android:title="Registrar" />
+                <item android:title="Actulizar" />
+                <item android:title="Eliminar" />
+                <item
+                    android:id="@+id/itemListarPersonas"
+                    android:title="Listar" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="Citas" />
+    <item
+        android:id="@+id/itemSalir"
+        android:title="Salir" />
+</menu>

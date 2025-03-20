@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="separacion_vertical">10dp</dimen>
+    <color name="ic_logoapp_background">#FEFFFF</color>
 </resources>

@@ -10,29 +10,29 @@
 
     <TextView
         android:id="@+id/textViewTitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-       
-        android:text="Registro Persona"
         style="@style/text_titulos"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/separacion_vertical"
+        android:text="Registro Persona"
         android:textColor="@color/black"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarRegistrarPersonas" />
 
     <EditText
         android:id="@+id/txtNombres"
         android:layout_width="200dp"
         android:layout_height="48dp"
-        android:layout_marginTop="@dimen/separacion_vertical"
-        android:inputType="text"
+        android:layout_marginTop="10dp"
         android:hint="Ingrese Nombres"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewTitulo" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitulo" />
 
     <EditText
         android:id="@+id/txtApellidos"
@@ -45,50 +45,87 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <RadioGroup
+        android:id="@+id/rgSexo"
+        android:layout_width="161dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.424"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtApellidos">
+
+        <RadioButton
+            android:id="@+id/rbFemenino"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Femenino" />
+
+        <RadioButton
+            android:id="@+id/rbMasculino"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Masculino" />
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/sp_ciudad"
+        android:layout_width="264dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgSexo" />
+
+    <EditText
+        android:id="@+id/txtPeso"
+        android:layout_width="141dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:hint="Ingrese Peso"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtDni" />
+
     <EditText
         android:id="@+id/txtEdad"
-        android:layout_width="200dp"
+        android:layout_width="141dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Ingrese Edad"
         android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@id/txtApellidos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.211"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/sp_ciudad" />
 
     <EditText
         android:id="@+id/txtDni"
-        android:layout_width="200dp"
+        android:layout_width="141dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
-        android:inputType="number"
         android:hint="Ingrese DNI"
-        app:layout_constraintTop_toBottomOf="@id/txtEdad"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.211"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/txtPeso"
-        android:layout_width="200dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:inputType="numberDecimal"
-        android:hint="Ingrese Peso"
-        app:layout_constraintTop_toBottomOf="@id/txtDni"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/txtEdad" />
 
     <EditText
         android:id="@+id/txtAltura"
-        android:layout_width="200dp"
+        android:layout_width="141dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
-        android:inputType="numberDecimal"
         android:hint="Ingrese Altura"
-        app:layout_constraintTop_toBottomOf="@id/txtPeso"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.211"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/txtPeso" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -105,7 +142,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:backgroundTint="#039D0A"
             android:text="Registrar" />
 
         <Button
@@ -114,8 +150,30 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:backgroundTint="#3F51B5"
+            android:onClick="onClickListar"
             android:text="Listar" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgFoto"
+        android:layout_width="108dp"
+        android:layout_height="216dp"
+        android:layout_marginTop="@dimen/separacion_vertical"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtDni"
+        app:layout_constraintTop_toBottomOf="@+id/sp_ciudad"
+        app:srcCompat="@drawable/click" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarRegistrarPersonas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

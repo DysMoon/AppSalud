@@ -1,74 +1,81 @@
 package Models;
 
+import android.net.Uri;
+
 import java.io.Serializable;
 
-public class Persona implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Persona {
     private String nombres;
     private String apellidos;
     private int edad;
     private String dni;
     private double peso;
     private double altura;
+    private String sexo;
+    private String ciudad;
+    private Uri foto;
 
-    public Persona(String nombres, String apellidos, int edad, String dni, double peso, double altura) {
+
+
+    public Persona(String nombres, String apellidos, String sexo, String ciudad, int edad, String dni, double peso, double altura, Uri foto) {
         this.nombres = nombres;
         this.apellidos = apellidos;
+        this.sexo = sexo;
+        this.ciudad = ciudad;
         this.edad = edad;
         this.dni = dni;
         this.peso = peso;
         this.altura = altura;
+        this.foto = foto;
+
+    }
+    public Uri getFoto() {
+        return foto;
+    }
+
+    public String getNombreCompleto(){
+        return apellidos+", "+ nombres;
+    }
+
+    public String getTipoPeso(){
+        String[] tipoPeso = {"Peso Bajo", "Peso Ideal", "Sobre Peso"};
+        return tipoPeso[calcularIMC()+1];
+
+    }
+
+    public String getTipoPersona(){
+        return esMayorDeEdad()?"mayor edad":"menor de edad";
     }
 
 
+    public String getSexo() {
+        return sexo;
+    }
+    public String getCiudad() {
+        return ciudad;
+    }
     public String getNombres() {
         return nombres;
     }
-
     public String getApellidos() {
         return apellidos;
     }
-
     public int getEdad() {
         return edad;
     }
-
     public String getDni() {
         return dni;
     }
-
     public double getPeso() {
         return peso;
     }
-
     public double getAltura() {
         return altura;
     }
 
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public void setPeso(double peso) {
-        this.peso = peso;
-    }
-
-    public void setAltura(double altura) {
-        this.altura = altura;
-    }
 
     public int calcularIMC() {
         double imc = peso / (altura * altura);
@@ -85,9 +92,6 @@ public class Persona implements Serializable {
         return edad >= 18;
     }
 
-    public static boolean verificarDNI(String dni) {
-        return dni != null && dni.matches("\\d{8}");
-    }
 
     @Override
     public String toString() {
