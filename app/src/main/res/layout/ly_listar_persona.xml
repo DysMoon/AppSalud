@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActividadListadoPersonas">
+    tools:context=".ActividadListarPersona">
 
     <TextView
         android:id="@+id/textView7"
@@ -24,7 +24,7 @@
         android:id="@+id/lvListaPersonas"
         android:layout_width="424dp"
         android:layout_height="614dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="5dp"
         android:divider="@color/grey"
         android:dividerHeight="5dp"
         app:layout_constraintEnd_toEndOf="parent"

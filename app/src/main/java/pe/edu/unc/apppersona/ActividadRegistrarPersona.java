@@ -24,18 +24,16 @@ import androidx.appcompat.widget.Toolbar;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import Models.Persona;
 
-public class ActividadPersona extends AppCompatActivity {
+public class ActividadRegistrarPersona extends AppCompatActivity {
 
     EditText txtNombres, txtApellidos, txtEdad, txtDni, txtPeso, txtAltura;
 
-    RadioGroup rgSexo; //si ya se pone esto ya no es necesario los radioboton
+    RadioGroup rgSexo;
     Spinner sp_ciudad;
     ImageView imgFoto;
-
     Button btnRegistrar, btnListar;
 
     String[] ciudad = {"Seleccionar ciudad","Lima", "Arequipa", "Trujillo"};
@@ -47,16 +45,11 @@ public class ActividadPersona extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.ly_persona);
+        setContentView(R.layout.ly_registrar_persona);
 
         Toolbar oBarra = findViewById(R.id.toolbarRegistrarPersonas);
         setSupportActionBar(oBarra);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-
-        // Inicializar la lista para evitar NullPointerException
-
 
         txtNombres = findViewById(R.id.txtNombres);
         txtApellidos = findViewById(R.id.txtApellidos);
@@ -68,18 +61,17 @@ public class ActividadPersona extends AppCompatActivity {
         btnListar = findViewById(R.id.btnListar);
         rgSexo = findViewById(R.id.rgSexo);
         sp_ciudad = findViewById(R.id.sp_ciudad);
-        //cargar los item para sp_ciudad(lista)
+
         sp_ciudad.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ciudad));
         sp_ciudad.setSelection(0);
 
         imgFoto = findViewById(R.id.imgFoto);
-        imgFoto.setOnClickListener(v -> seleccionarFoto());//para que sea desde la galeria
+        imgFoto.setOnClickListener(v -> seleccionarFoto());
 
         btnRegistrar.setOnClickListener(v -> registrarPersona());
         btnListar.setOnClickListener(v -> listarPersonas());
 
     }
-    //Metodo(Superclase) que recoge la imagen seleccionada
 
     private void seleccionarFoto(){
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -105,7 +97,6 @@ public class ActividadPersona extends AppCompatActivity {
             return;
 
         try {
-            // Asignación en bloque, manteniendo tu estructura
             String nombres = txtNombres.getText().toString().trim();
             String apellidos = txtApellidos.getText().toString().trim();
             String sexo = obtenerseleccionarSexo();
@@ -115,16 +106,11 @@ public class ActividadPersona extends AppCompatActivity {
             double peso = Double.parseDouble(txtPeso.getText().toString().trim());
             double altura = Double.parseDouble(txtAltura.getText().toString().trim());
 
-            // Crear el objeto Persona
             Persona persona = new Persona(nombres, apellidos, sexo, ciudad, edad, dni, peso, altura, imgSeleccionado);
-//            listaPersonas.add(persona);
-                ActividadPrincipal.listaPersonas.add(oPersona);
-//Habia una condicional DNI
-            // Confirmación del registro
+            AdaptadorPersonas.listaPersona.add(persona);
             Toast.makeText(this, "Persona registrada correctamente", Toast.LENGTH_SHORT).show();
             Toast.makeText(this, persona.toString(), Toast.LENGTH_LONG).show();
 
-            // Limpiar los campos después del registro
 
             cuadroDialogo();
             limpiar();
@@ -144,7 +130,7 @@ public class ActividadPersona extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
-                    ActividadPersona.this.finish();
+                    ActividadRegistrarPersona.this.finish();
             }
         });
         oDialogo.setPositiveButton("Si", new DialogInterface.OnClickListener() {
@@ -206,14 +192,13 @@ public class ActividadPersona extends AppCompatActivity {
     }
 
     private void listarPersonas() {
-        // Convertir lista de objetos Persona a lista de Strings
         ArrayList<String> listaPersonasString = new ArrayList<>();
-        for (Persona p : ActividadPrincipal.listaPersonas)
-            listaPersonasString.add(p.getNombres() + "," + p.getApellidos() + "," + p.getSexo() + "," +
+        for (Persona p : AdaptadorPersonas.listaPersona)
+            listaPersonasString.add( p.getNombreCompleto() + "," + p.getSexo() + "," +
                     p.getCiudad() + "," + p.getEdad() + "," + p.getDni() + "," + p.getPeso() + "," + p.getAltura());
 
-        Intent intent = new Intent(this, ActividadListadoPersonas.class);
-        intent.putStringArrayListExtra("listaPersonas", listaPersonasString); // Enviar lista de Strings
+        Intent intent = new Intent(this, ActividadListarPersona.class);
+        intent.putStringArrayListExtra("listaPersonas", listaPersonasString);
         startActivity(intent);
 
     }
@@ -233,7 +218,7 @@ public class ActividadPersona extends AppCompatActivity {
     }
 
     public void onClickListar(View boton) {
-        Intent intent = new Intent(this, ActividadListadoPersonas.class);
+        Intent intent = new Intent(this, ActividadListarPersona.class);
         startActivity(intent);
     }
 }

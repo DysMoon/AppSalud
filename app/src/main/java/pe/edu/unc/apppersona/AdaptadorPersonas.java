@@ -6,20 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
+import java.util.ArrayList;
 import java.util.List;
-
 import Models.Persona;
 
 public class AdaptadorPersonas extends BaseAdapter {
-    private List<Persona> listaPersona;
+    public static List<Persona> listaPersona = new ArrayList<>();
+
+
 
     private Context context;
-    //para asociar a recurso layput(diseño de la tarjeta)
     LayoutInflater inflater;
 
     public AdaptadorPersonas(List<Persona> listaPersona, Context contexto) {
@@ -52,13 +50,12 @@ public class AdaptadorPersonas extends BaseAdapter {
         TextView lbTipoPersona = vista.findViewById(R.id.lbTipoPersona);
         ImageView imgSexo = vista.findViewById(R.id.imgItemSexo);
         TextView lbProcedencia = vista.findViewById(R.id.lbProcedencia);
-        //Llenar valores em los objetos de tipo View
         Persona oP = listaPersona.get(i);
 
         imgFoto.setImageURI(listaPersona.get(i).getFoto());
         lbNombre.setText(listaPersona.get(i).getNombreCompleto());
         lbTipoPeso.setText(listaPersona.get(i).getTipoPeso());
-        lbProcedencia.setText(listaPersona.get(i).getCiudad());
+        lbProcedencia.setText("Ciudad Procedencia: " + listaPersona.get(i).getCiudad());
 
 
         lbTipoPersona.setText(oP.getTipoPersona());

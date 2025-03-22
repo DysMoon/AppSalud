@@ -2,8 +2,6 @@ package Models;
 
 import android.net.Uri;
 
-import java.io.Serializable;
-
 public class Persona {
     private String nombres;
     private String apellidos;
@@ -14,7 +12,6 @@ public class Persona {
     private String sexo;
     private String ciudad;
     private Uri foto;
-
 
 
     public Persona(String nombres, String apellidos, String sexo, String ciudad, int edad, String dni, double peso, double altura, Uri foto) {
@@ -73,10 +70,6 @@ public class Persona {
         return altura;
     }
 
-
-
-
-
     public int calcularIMC() {
         double imc = peso / (altura * altura);
         if (imc < 20) {
@@ -91,7 +84,6 @@ public class Persona {
     public boolean esMayorDeEdad() {
         return edad >= 18;
     }
-
 
     @Override
     public String toString() {
