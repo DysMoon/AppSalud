@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/itemInicio"
+        android:title="Inicio de Aplicación"/>
+    <item
+        android:id="@+id/itemMantenimiento"
+        android:title="Mantenimiento de Aplicación">
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/callsItem"
+                    android:title="Llamadas" />
+                <item
+                    android:id="@+id/registerItem"
+                    android:title="Registrar"/>
+                <item
+                    android:id="@+id/itemActualizar"
+                    android:title="Actualizar" />
+                <item
+                    android:id="@+id/itemEliminar"
+                    android:title="Eliminar"/>
+                <item
+                    android:id="@+id/listItem"
+                    android:title="Listar"/>
+            </group>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/itemCita"
+        android:title="Agendar Cita"/>
+    <item
+        android:id="@+id/exitItem"
+        android:title="Salir"/>
+</menu>

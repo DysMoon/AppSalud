@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActividadRegistrarPersona">
+    tools:context=".RegisterActivity">
 
     <TextView
         android:id="@+id/textViewTitulo"
@@ -21,10 +21,10 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarRegistrarPersonas" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarRegistrar" />
 
     <EditText
-        android:id="@+id/txtNombres"
+        android:id="@+id/txtNombre"
         android:layout_width="200dp"
         android:layout_height="48dp"
         android:layout_marginTop="10dp"
@@ -35,25 +35,25 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewTitulo" />
 
     <EditText
-        android:id="@+id/txtApellidos"
+        android:id="@+id/txtApellido"
         android:layout_width="200dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:inputType="text"
         android:hint="Ingrese Apellidos"
-        app:layout_constraintTop_toBottomOf="@id/txtNombres"
+        app:layout_constraintTop_toBottomOf="@id/txtNombre"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <RadioGroup
-        android:id="@+id/rgSexo"
+        android:id="@+id/rgGenero"
         android:layout_width="161dp"
         android:layout_height="110dp"
         android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.424"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtApellidos">
+        app:layout_constraintTop_toBottomOf="@+id/txtApellido">
 
         <RadioButton
             android:id="@+id/rbFemenino"
@@ -69,14 +69,14 @@
     </RadioGroup>
 
     <Spinner
-        android:id="@+id/sp_ciudad"
+        android:id="@+id/spCiudad"
         android:layout_width="264dp"
         android:layout_height="55dp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rgSexo" />
+        app:layout_constraintTop_toBottomOf="@+id/rgGenero" />
 
     <EditText
         android:id="@+id/txtPeso"
@@ -101,7 +101,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.211"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sp_ciudad" />
+        app:layout_constraintTop_toBottomOf="@+id/spCiudad" />
 
     <EditText
         android:id="@+id/txtDni"
@@ -150,7 +150,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:onClick="onClickListar"
             android:text="Listar" />
     </LinearLayout>
 
@@ -162,11 +161,11 @@
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txtDni"
-        app:layout_constraintTop_toBottomOf="@+id/sp_ciudad"
+        app:layout_constraintTop_toBottomOf="@+id/spCiudad"
         app:srcCompat="@drawable/click" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarRegistrarPersonas"
+        android:id="@+id/toolbarRegistrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
