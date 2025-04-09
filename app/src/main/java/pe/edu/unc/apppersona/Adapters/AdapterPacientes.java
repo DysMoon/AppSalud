@@ -54,7 +54,12 @@ public class AdapterPacientes extends BaseAdapter {
 
         Paciente paciente = daoPaciente.getPaciente(position);
 
-        imgItemFoto.setImageBitmap(convertToBitmap(paciente.getFoto()));
+        if (paciente.getImgFoto() != null) {
+            imgItemFoto.setImageBitmap(convertToBitmap(paciente.getImgFoto()));
+        } else {
+            imgItemFoto.setImageResource(R.drawable.click); // imagen por defecto
+        }
+
         lbNombreCompleto.setText(paciente.nombreCompleto());
         lbTipoPeso.setText(paciente.pesoPaciente());
         lbProcedencia.setText(paciente.getCiudad());

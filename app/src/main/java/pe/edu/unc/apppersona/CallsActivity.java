@@ -50,7 +50,8 @@ public class CallsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         lvCallList = findViewById(R.id.lvListaLlamadas);

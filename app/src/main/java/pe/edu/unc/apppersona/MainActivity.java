@@ -77,6 +77,14 @@ public class MainActivity extends AppCompatActivity {
             intent = new Intent(this, CallsActivity.class);
             startActivity(intent);
         }
+        if (item.getItemId() == R.id.listaPersonaAPIItem) {
+            intent = new Intent(this, ActividadListarPacientesAPI.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.itemRegistarPacienteAPI) {
+            intent = new Intent(this, ActividadRegistarPacientesAPI.class);
+            startActivity(intent);
+        }
 
         return super.onOptionsItemSelected(item);
     }

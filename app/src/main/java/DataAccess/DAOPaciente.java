@@ -33,7 +33,7 @@ public class DAOPaciente {
             values.put("dni", paciente.getDni());
             values.put("peso", paciente.getPeso());
             values.put("altura", paciente.getAltura());
-            values.put("foto", paciente.getFoto());
+            values.put("foto", paciente.getImgFoto());
 
             long row = db.insert("Paciente", null, values);
             response = row > 0;
@@ -46,7 +46,7 @@ public class DAOPaciente {
 
     public boolean cargar(Activity context) {
         boolean response = false;
-        pacienteList.clear();  // evitar duplicados
+        pacienteList.clear(); // evitar duplicados
 
         BDOpenHelper dbHelper = new BDOpenHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -66,7 +66,9 @@ public class DAOPaciente {
                 double altura = records.getDouble(8);
                 byte[] foto = records.getBlob(9);
 
-                Paciente paciente = new Paciente(nombre, apellido, genero, ciudad, edad, dni, peso, altura, foto);
+                Paciente paciente = new Paciente(nombre, apellido, genero, ciudad, edad, dni, peso, altura);
+                paciente.setImgFoto(foto); // ← se añadió esta línea
+
                 pacienteList.add(paciente);
             } while (records.moveToNext());
         }

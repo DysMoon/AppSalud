@@ -8,6 +8,12 @@
         <menu>
             <group>
                 <item
+                    android:id="@+id/itemRegistarPacienteAPI"
+                    android:title="Registrar Paciente API" />
+                <item
+                    android:id="@+id/listaPersonaAPIItem"
+                    android:title="listaPacienteAPI" />
+                <item
                     android:id="@+id/callsItem"
                     android:title="Llamadas" />
                 <item

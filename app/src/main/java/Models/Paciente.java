@@ -1,19 +1,21 @@
 package Models;
 
 public class Paciente {
-    private String nombre;
-    private String apellido;
-    private String genero;
-    private String ciudad;
-    private int edad;
-    private String dni;
-    private double peso;
-    private double altura;
-    private byte[] foto;
+    protected String nombre;
+    protected String apellido;
+    protected String genero;
+    protected String ciudad;
+    protected int edad;
+    protected String dni;
+    protected double peso;
+    protected double altura;
+    private byte[] imgFoto;
+
+    public Paciente() {}
 
     // Constructor
     public Paciente(String nombre, String apellido, String genero, String ciudad,
-                    int edad, String dni, double peso, double altura, byte[] foto) {
+                    int edad, String dni, double peso, double altura) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.genero = genero;
@@ -22,7 +24,6 @@ public class Paciente {
         this.dni = dni;
         this.peso = peso;
         this.altura = altura;
-        this.foto = foto;
     }
 
     // Getters y Setters
@@ -82,11 +83,11 @@ public class Paciente {
         this.altura = altura;
     }
 
-    public byte[] getFoto() {
-        return foto;
+    public byte[] getImgFoto() {
+        return imgFoto;
     }
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
+    public void setImgFoto(byte[] foto) {
+        this.imgFoto = foto;
     }
 
     // Métodos adicionales

@@ -19,8 +19,10 @@ public class ListActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbarListar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Lista de Pacientes");
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Lista de Pacientes");
+        }
 
         ListView lvListado = findViewById(R.id.lvListar);
         if (lvListado == null) {

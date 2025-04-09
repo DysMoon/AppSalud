@@ -2,7 +2,6 @@ package pe.edu.unc.apppersona;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -30,14 +29,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterActivity extends AppCompatActivity {
+public class ActividadRegistarPacientesAPI extends AppCompatActivity {
 
     private EditText txtNombre, txtApellido, txtEdad, txtDni, txtPeso, txtAltura;
     private RadioGroup rgGenero;
     private Spinner spCiudad;
     private ImageView imgFoto;
     private byte[] imgSeleccionada;
-
     private final String[] city = {"Seleccionar ciudad", "Cajamarca", "Chiclayo", "Trujillo"};
 
     @Override
@@ -78,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void registrarPacientes() {
         if (validar()) {
             registrarPacienteEnBD();
+            mostrarDialogo();
         }
     }
 
@@ -91,39 +90,42 @@ public class RegisterActivity extends AppCompatActivity {
         double peso = Double.parseDouble(txtPeso.getText().toString().trim());
         double altura = Double.parseDouble(txtAltura.getText().toString().trim());
 
-        String foto = "foto_referencia"; // corrección: ya no usamos getText() en imgSeleccionada
-
-        PacienteAPI paciente = new PacienteAPI(nombre, apellido, genero, ciudad, edad, dni, peso, altura, foto);
+        // Guardar localmente
+        Paciente paciente = new Paciente(nombre, apellido, genero, ciudad, edad, dni, peso, altura);
         paciente.setImgFoto(imgSeleccionada);
 
         DAOPaciente daoPaciente = new DAOPaciente();
         daoPaciente.addPaciente(this, paciente);
-        Toast.makeText(this, "Paciente registrado correctamente", Toast.LENGTH_SHORT).show();
 
+        Toast.makeText(this, "Paciente registrado localmente", Toast.LENGTH_SHORT).show();
+
+        // Enviar a la API también
         if (Paciente.verificarDNI(dni)) {
-            enviarPost(paciente);
-        } else {
-            Toast.makeText(this, "No se pudo registrar el paciente", Toast.LENGTH_SHORT).show();
-            txtDni.requestFocus();
+            enviarPost(nombre, apellido, genero, ciudad, edad, dni, peso, altura);
         }
     }
 
-    private void enviarPost(PacienteAPI paciente) {
-        ApiServicioSalud apiServicioSalud = RetrofitClient.getClient().create(ApiServicioSalud.class);
-        Call<PacienteAPI> call = apiServicioSalud.PostPacientes(paciente);
+    private void enviarPost(String nombre, String apellido, String genero, String ciudad,
+                            int edad, String dni, double peso, double altura) {
+        String foto = "foto_referencia"; // por ahora texto fijo
+        PacienteAPI pacienteAPI = new PacienteAPI(nombre, apellido, genero, ciudad, edad, dni, peso, altura, foto);
+
+        ApiServicioSalud api = RetrofitClient.getClient().create(ApiServicioSalud.class);
+        Call<PacienteAPI> call = api.PostPacientes(pacienteAPI);
+
         call.enqueue(new Callback<PacienteAPI>() {
             @Override
             public void onResponse(Call<PacienteAPI> call, Response<PacienteAPI> response) {
                 if (response.isSuccessful()) {
-                    mostrarDialogo();
+                    Toast.makeText(ActividadRegistarPacientesAPI.this, "Paciente enviado a la API", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(RegisterActivity.this, "Error al registrar el paciente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActividadRegistarPacientesAPI.this, "Error al registrar en la API", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<PacienteAPI> call, Throwable t) {
-                Toast.makeText(RegisterActivity.this, "Error API", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActividadRegistarPacientesAPI.this, "Fallo de conexión con la API", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -139,11 +141,11 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean validar() {
-        if (txtNombre.getText().toString().trim().isEmpty()) {
+        if (txtNombre.getText().toString().isEmpty()) {
             txtNombre.setError("Nombre(s) del paciente obligatorio");
             txtNombre.requestFocus();
             return false;
-        } else if (txtApellido.getText().toString().trim().isEmpty()) {
+        } else if (txtApellido.getText().toString().isEmpty()) {
             txtApellido.setError("Apellidos del paciente obligatorio");
             txtApellido.requestFocus();
             return false;
@@ -155,23 +157,23 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Debe seleccionar una ciudad", Toast.LENGTH_LONG).show();
             spCiudad.requestFocus();
             return false;
-        } else if (txtEdad.getText().toString().trim().isEmpty()) {
+        } else if (txtEdad.getText().toString().isEmpty()) {
             txtEdad.setError("Edad del paciente obligatoria");
             txtEdad.requestFocus();
             return false;
-        } else if (txtDni.getText().toString().trim().isEmpty()) {
+        } else if (txtDni.getText().toString().isEmpty()) {
             txtDni.setError("N° de DNI obligatorio");
             txtDni.requestFocus();
             return false;
-        } else if (!Paciente.verificarDNI(txtDni.getText().toString().trim())) {
+        } else if (!Paciente.verificarDNI(txtDni.getText().toString())) {
             txtDni.setError("Ingrese los 8 dígitos correctamente");
             txtDni.requestFocus();
             return false;
-        } else if (txtPeso.getText().toString().trim().isEmpty()) {
+        } else if (txtPeso.getText().toString().isEmpty()) {
             txtPeso.setError("Peso del paciente obligatorio");
             txtPeso.requestFocus();
             return false;
-        } else if (txtAltura.getText().toString().trim().isEmpty()) {
+        } else if (txtAltura.getText().toString().isEmpty()) {
             txtAltura.setError("Altura del paciente obligatoria");
             txtAltura.requestFocus();
             return false;
@@ -211,8 +213,9 @@ public class RegisterActivity extends AppCompatActivity {
         if (requestCode == 100 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri uploadedPhoto = data.getData();
             imgFoto.setImageURI(uploadedPhoto);
-            BitmapDrawable drawable = (BitmapDrawable) imgFoto.getDrawable();
-            Bitmap bitmap = drawable.getBitmap();
+            imgFoto.setDrawingCacheEnabled(true);
+            imgFoto.buildDrawingCache();
+            Bitmap bitmap = imgFoto.getDrawingCache();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             imgSeleccionada = stream.toByteArray();
